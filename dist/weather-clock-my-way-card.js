@@ -4,71 +4,109 @@ class WeatherClockMyWayCard extends HTMLElement {
     this.innerHTML = `<ha-card id="weather-clock-my-way-card">
       <style>
         #weather-clock-my-way-card {
-          background: #222;
-          color: #fff;
-          font-family: 'Arial', sans-serif;
+          
+        }
+        .weather-container {
           display: flex;
           flex-direction: row;
-          align-items: center;
           justify-content: space-between;
-          padding: 16px;
+          align-items: center;
+          background: #222;
+          color: #fff;
+          padding: 24px;
+          font-family: Arial, sans-serif;
+          border-radius: 16px;
+          gap: 32px;
         }
+        
         .weather-info {
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          padding-bottom: 16px;
         }
-        .day {
+        
+        .weather-date {
           text-transform: uppercase;
+          font-weight: bold;
+          font-size: 1.1rem;
+          margin-bottom: 8px;
+        }
+        
+        .weather-time {
+          font-weight: 900;
+          font-size: 60px;
+          line-height: 1;
+        }
+        
+        .weather-row {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+        
+        .weather-description {
+          text-transform: uppercase;
+          font-weight: bold;
           font-size: 1rem;
-          letter-spacing: 1px;
-          margin-bottom: 0.5rem;
+          margin-bottom: 4px;
         }
-        .time {
-          font-size: 3.5rem;
+        
+        .weather-temp {
+          font-weight: 900;
+          font-size: 40px;
+          line-height: 1;
+          margin-bottom: 8px;
+        }
+        
+        .weather-winds {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+        }
+        
+        .wind-direction,
+        .wind-gust {
           font-weight: bold;
-          margin-bottom: 0.5rem;
+          font-size: 14px;
         }
-        .condition {
-          font-size: 1.1rem;
-          margin-bottom: 0.2rem;
-        }
-        .temp {
-          font-size: 2.7rem;
-          font-weight: bold;
-          margin-bottom: 0.4rem;
-        }
-        .winds {
-          font-size: 1.1rem;
-          opacity: 0.85;
-        }
-        .weather-icon {
+        
+        .weather-icon-container {
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 5rem;
-          margin-left: 2rem;
         }
-        @media (max-width: 600px) {
-          #weather-clock-my-way-card {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-          .weather-icon {
-            margin-left: 0;
-            margin-top: 1rem;
-            font-size: 3.5rem;
-          }
+        
+        .weather-icon img {
+          width: 150px;
+          height: 150px;
         }
       </style>
-      <div class="weather-info">
-        <div class="day" id="day"></div>
-        <div class="time" id="time"></div>
-        <div class="condition" id="condition"></div>
-        <div class="temp" id="temp"></div>
-        <div class="winds" id="winds"></div>
+      <div class="weather-container">
+      <div>
+        <div class="weather-info">
+          <div class="weather-date">
+            <div class="day" id="day"></div>
+          </div>
+          <div class="weather-time">
+            <div class="time" id="time"></div>
+          </div>
+        </div>
+        <div class="weather-row">
+          <div>
+            <div>
+              <div class="weather-description"><div class="condition" id="condition"></div></div>
+              <div class="weather-temp"><div class="temp" id="temp"></div></div>
+              <div class="weather-winds">
+                  <div class="winds" id="winds"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="weather-icon" id="icon"></div>
+      <div class="weather-icon-container">
+        <div class="weather-icon" id="icon"></div>
+      </div>
+    </div>
     </ha-card>`;
     this.updateCard();
     if (!this._interval) {
@@ -119,7 +157,7 @@ class WeatherClockMyWayCard extends HTMLElement {
     this.querySelector('#condition').innerText = this.getConditionText(condition);
     this.querySelector('#temp').innerText = tempValue ? `${Math.round(tempValue)}${tempUnit}` : '-';
     this.querySelector('#winds').innerText =
-      (windSpeed ? `↘ ${windSpeed} m/s ` : '') +
+      (windSpeed ? `${windSpeed} m/s ` : '') +
       (windGust ? `🌬️ ${windGust} m/s` : '');
 
     // Kuvake
@@ -135,7 +173,7 @@ class WeatherClockMyWayCard extends HTMLElement {
     };
     const iconFile = iconMap[(condition || '').toLowerCase()] || 'rain.svg';
     // HACS:in kautta oikea polku on /hacsfiles/<repo-nimi>/<kansio>/<kuva>
-    return `<img src="/hacsfiles/weather-clock-my-way-card/icons/meteocons/${iconFile}" alt="${condition}" style="height:72px;">`;
+    return `<img src="/hacsfiles/weather-clock-my-way-card/icons/meteocons/${iconFile}" alt="${condition}">`;
   }
   /*
   getWeatherIcon(condition) {
