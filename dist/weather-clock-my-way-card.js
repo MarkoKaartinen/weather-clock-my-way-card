@@ -128,12 +128,12 @@ class WeatherClockMyWayCard extends HTMLElement {
 
   getWeatherIcon(condition) {
     const iconMap = {
-      'clear': 'clear-day.png',
-      'cloudy': 'cloudy.png',
-      'rainy': 'rain.png',
+      'clear': 'clear-day.svg',
+      'cloudy': 'cloudy.svg',
+      'rainy': 'rain.svg',
       // lisää muut
     };
-    const iconFile = iconMap[(condition || '').toLowerCase()] || 'rain.png';
+    const iconFile = iconMap[(condition || '').toLowerCase()] || 'rain.svg';
     // HACS:in kautta oikea polku on /hacsfiles/<repo-nimi>/<kansio>/<kuva>
     return `<img src="/hacsfiles/weather-clock-my-way-card/icons/meteocons/${iconFile}" alt="${condition}" style="height:72px;">`;
   }
