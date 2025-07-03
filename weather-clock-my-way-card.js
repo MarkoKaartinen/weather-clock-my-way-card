@@ -127,6 +127,18 @@ class WeatherClockMyWayCard extends HTMLElement {
   }
 
   getWeatherIcon(condition) {
+    const iconMap = {
+      'clear': 'clear-day.png',
+      'cloudy': 'cloudy.png',
+      'rainy': 'rain.png',
+      // lisää muut
+    };
+    const iconFile = iconMap[(condition || '').toLowerCase()] || 'rain.png';
+    // HACS:in kautta oikea polku on /hacsfiles/<repo-nimi>/<kansio>/<kuva>
+    return `<img src="/hacsfiles/weather-clock-my-way/icons/meteocons/${iconFile}" alt="${condition}" style="height:72px;">`;
+  }
+  /*
+  getWeatherIcon(condition) {
     // Yksinkertainen ikonitulkinta, voit laajentaa
     switch ((condition || '').toLowerCase()) {
       case 'clear-night':
@@ -154,6 +166,7 @@ class WeatherClockMyWayCard extends HTMLElement {
         return '🌥️';
     }
   }
+  */
 
   getConditionText(condition) {
     // Suomentaa säätilan

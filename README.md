@@ -37,3 +37,7 @@ weather: weather.home
 
 - Lisää tämä repo custom repositoryksi HACS:iin, valitse tyyppi "Lovelace".
 - Asenna kortti HACSista ja seuraa yllä olevia ohjeita.
+
+## Linkit
+
+- Ikonit: https://github.com/basmilius/weather-icons
