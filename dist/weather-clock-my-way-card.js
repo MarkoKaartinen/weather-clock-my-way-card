@@ -11,10 +11,8 @@ class WeatherClockMyWayCard extends HTMLElement {
           flex-direction: row;
           justify-content: space-between;
           align-items: center;
-          background: #222;
           color: #fff;
           padding: 24px;
-          font-family: Arial, sans-serif;
           border-radius: 16px;
           gap: 32px;
         }
@@ -22,14 +20,12 @@ class WeatherClockMyWayCard extends HTMLElement {
         .weather-info {
           display: flex;
           flex-direction: column;
-          padding-bottom: 16px;
         }
         
         .weather-date {
           text-transform: uppercase;
           font-weight: bold;
           font-size: 1.1rem;
-          margin-bottom: 8px;
         }
         
         .weather-time {
@@ -48,14 +44,12 @@ class WeatherClockMyWayCard extends HTMLElement {
           text-transform: uppercase;
           font-weight: bold;
           font-size: 1rem;
-          margin-bottom: 4px;
         }
         
         .weather-temp {
           font-weight: 900;
           font-size: 40px;
           line-height: 1;
-          margin-bottom: 8px;
         }
         
         .weather-winds {
