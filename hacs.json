@@ -1,0 +1,6 @@
+{
+  "name": "Weather Clock My Way",
+  "content_in_root": true,
+  "filename": "weather-clock-my-way-card.js",
+  "type": "lovelace"
+}
