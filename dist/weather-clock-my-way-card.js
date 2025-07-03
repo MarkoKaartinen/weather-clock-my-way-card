@@ -135,7 +135,7 @@ class WeatherClockMyWayCard extends HTMLElement {
     };
     const iconFile = iconMap[(condition || '').toLowerCase()] || 'rain.png';
     // HACS:in kautta oikea polku on /hacsfiles/<repo-nimi>/<kansio>/<kuva>
-    return `<img src="/hacsfiles/weather-clock-my-way/icons/meteocons/${iconFile}" alt="${condition}" style="height:72px;">`;
+    return `<img src="/hacsfiles/weather-clock-my-way-card/icons/meteocons/${iconFile}" alt="${condition}" style="height:72px;">`;
   }
   /*
   getWeatherIcon(condition) {
