@@ -7,33 +7,57 @@ class WeatherClockMyWayCard extends HTMLElement {
           
         }
         .wcmw-card-container {
+          display: flex; 
+          padding: 1rem 1.5rem; 
+          justify-content: space-between; 
+          align-items: center; 
         }
         
         .wcmw-card-info {
+          display: flex; 
+          padding-bottom: 1rem; 
+          flex-direction: column; 
         }
         
         .wcmw-card-day {
+          font-weight: 700; 
+          text-transform: uppercase; 
         }
         
         .wcmw-card-time {
+          font-weight: 900; 
+          line-height: 1; 
+          font-size: 60px;
         }
         
         .wcmw-card-row {
+          display: flex; 
+          justify-content: space-between; 
+          align-items: center; 
         }
         
         .wcmw-card-condition {
+          font-weight: 700; 
+          text-transform: uppercase; 
         }
         
         .wcmw-card-temp {
+          font-weight: 900; 
+          line-height: 1; 
+          font-size: 40px;
         }
         
         .wcmw-card-winds {
+          font-weight:700;
+          font-size:14px;
         }
         
         .wcmw-card-icon-container {
         }
         
         .wcmw-card-icon img {
+          width:150px;
+          height:150px;
         }
       </style>
       <div class="wcmw-card-container">
