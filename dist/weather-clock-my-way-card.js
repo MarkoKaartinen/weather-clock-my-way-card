@@ -3,102 +3,57 @@ class WeatherClockMyWayCard extends HTMLElement {
     this.config = config;
     this.innerHTML = `<ha-card id="weather-clock-my-way-card">
       <style>
-        #weather-clock-my-way-card {
+        #wcmw-card {
           
         }
-        .weather-container {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-          color: #fff;
-          padding: 24px;
-          border-radius: 16px;
-          gap: 32px;
+        .wcmw-card-container {
         }
         
-        .weather-info {
-          display: flex;
-          flex-direction: column;
+        .wcmw-card-info {
         }
         
-        .weather-date {
-          text-transform: uppercase;
-          font-weight: bold;
-          font-size: 1.1rem;
+        .wcmw-card-day {
         }
         
-        .weather-time {
-          font-weight: 900;
-          font-size: 60px;
-          line-height: 1;
+        .wcmw-card-time {
         }
         
-        .weather-row {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
+        .wcmw-card-row {
         }
         
-        .weather-description {
-          text-transform: uppercase;
-          font-weight: bold;
-          font-size: 1rem;
+        .wcmw-card-condition {
         }
         
-        .weather-temp {
-          font-weight: 900;
-          font-size: 40px;
-          line-height: 1;
+        .wcmw-card-temp {
         }
         
-        .weather-winds {
-          display: flex;
-          flex-direction: row;
-          gap: 8px;
+        .wcmw-card-winds {
         }
         
-        .wind-direction,
-        .wind-gust {
-          font-weight: bold;
-          font-size: 14px;
+        .wcmw-card-icon-container {
         }
         
-        .weather-icon-container {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        
-        .weather-icon img {
-          width: 150px;
-          height: 150px;
+        .wcmw-card-icon img {
         }
       </style>
-      <div class="weather-container">
+      <div class="wcmw-card-container">
       <div>
-        <div class="weather-info">
-          <div class="weather-date">
-            <div class="day" id="day"></div>
-          </div>
-          <div class="weather-time">
-            <div class="time" id="time"></div>
-          </div>
+        <div class="wcmw-card-info">
+          <div class="wcmw-card-day" id="wcmw-card-day"></div>
+          <div class="wcmw-card-time" id="wcmw-card-time"></div>
         </div>
-        <div class="weather-row">
+        <div class="wcmw-card-row">
           <div>
             <div>
-              <div class="weather-description"><div class="condition" id="condition"></div></div>
-              <div class="weather-temp"><div class="temp" id="temp"></div></div>
-              <div class="weather-winds">
-                  <div class="winds" id="winds"></div>
-              </div>
+              <div class="wcmw-card-condition" id="wcmw-card-condition"></div>
+              <div class="wcmw-card-temp" id="wcmw-card-temp"></div>
+              <div class="wcmw-card-winds" id="wcmw-card-winds"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="weather-icon-container">
-        <div class="weather-icon" id="icon"></div>
+      <div class="wcmw-card-icon-container">
+        <div class="wcmw-card-icon" id="wcmw-card-icon"></div>
       </div>
     </div>
     </ha-card>`;
@@ -124,8 +79,8 @@ class WeatherClockMyWayCard extends HTMLElement {
       hour: '2-digit',
       minute: '2-digit'
     });
-    this.querySelector('#day').innerText = day.toUpperCase();
-    this.querySelector('#time').innerText = time;
+    this.querySelector('#wcmw-card-day').innerText = day.toUpperCase();
+    this.querySelector('#wcmw-card-time').innerText = time;
   }
 
   updateCard() {
@@ -137,6 +92,8 @@ class WeatherClockMyWayCard extends HTMLElement {
     const windSpeedEntity = this.config.wind_speed || '';
     const windGustEntity = this.config.wind_gust || '';
     const tempEntity = this.config.temperature || '';
+    const debug = this.config.debug || false;
+
     const weatherState = this._hass?.states[weatherEntity];
     const tempValue = tempEntity ? this._hass?.states[tempEntity]?.state : weatherState?.attributes.temperature;
     const tempUnit = weatherState?.attributes.temperature_unit || '°C';
@@ -148,14 +105,18 @@ class WeatherClockMyWayCard extends HTMLElement {
     const conditionIcon = this.getWeatherIcon(condition);
 
     // Tekstit
-    this.querySelector('#condition').innerText = this.getConditionText(condition);
-    this.querySelector('#temp').innerText = tempValue ? `${Math.round(tempValue)}${tempUnit}` : '-';
-    this.querySelector('#winds').innerText =
+    this.querySelector('#wcmw-card-condition').innerText = this.getConditionText(condition);
+    this.querySelector('#wcmw-card-temp').innerText = tempValue ? `${Math.round(tempValue)}${tempUnit}` : '-';
+    this.querySelector('#wcmw-card-winds').innerText =
       (windSpeed ? `${windSpeed} m/s ` : '') +
       (windGust ? `🌬️ ${windGust} m/s` : '');
 
     // Kuvake
-    this.querySelector('#icon').innerHTML = conditionIcon;
+    this.querySelector('#wcmw-card-icon').innerHTML = conditionIcon;
+
+    if(debug){
+      console.log(`[WCMW DEBUG] Weather entity: ${weatherEntity}`);
+    }
   }
 
   getWeatherIcon(condition) {
