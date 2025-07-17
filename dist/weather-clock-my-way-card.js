@@ -117,7 +117,7 @@ class WeatherClockMyWayCard extends HTMLElement {
     const windBearingEntity = this.config.wind_bearing || '';
     const windGustEntity = this.config.wind_gust || '';
     const tempEntity = this.config.temperature || '';
-    const windSpeedUnitEntity = this.config.wind_speed_unit || 'm/s';
+    const windSpeedUnitEntity = this.config.wind_speed_unit || '';
     const debug = this.config.debug || false;
 
     const weatherState = this._hass?.states[weatherEntity];
