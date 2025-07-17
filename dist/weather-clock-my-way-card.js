@@ -139,6 +139,8 @@ class WeatherClockMyWayCard extends HTMLElement {
     this.querySelector('#wcmw-card-icon').innerHTML = conditionIcon;
 
     if(debug){
+      console.log(`[WCMW DEBUG] Weather entity:`);
+      console.log(weatherEntity);
       console.log(`[WCMW DEBUG] Weather state:`);
       console.log(weatherState);
     }
