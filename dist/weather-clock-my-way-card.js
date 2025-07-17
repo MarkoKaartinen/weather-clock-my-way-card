@@ -117,6 +117,7 @@ class WeatherClockMyWayCard extends HTMLElement {
     const windBearingEntity = this.config.wind_bearing || '';
     const windGustEntity = this.config.wind_gust || '';
     const tempEntity = this.config.temperature || '';
+    const windSpeedUnitEntity = this.config.wind_speed_unit || 'm/s';
     const debug = this.config.debug || false;
 
     const weatherState = this._hass?.states[weatherEntity];
@@ -124,6 +125,7 @@ class WeatherClockMyWayCard extends HTMLElement {
     const tempUnit = weatherState?.attributes.temperature_unit || '°C';
     const condition = weatherState?.state || '';
     const windSpeed = windSpeedEntity ? this._hass?.states[windSpeedEntity]?.state : weatherState?.attributes.wind_speed;
+    const windSpeedUnit = windSpeedUnitEntity ? this._hass?.states[windSpeedUnitEntity]?.state : weatherState?.attributes.wind_speed_unit;
     const windBearing = windBearingEntity ? this._hass?.states[windBearingEntity]?.state : weatherState?.attributes.wind_bearing;
     const windGust = windGustEntity ? this._hass?.states[windGustEntity]?.state : weatherState?.attributes.wind_gust_speed;
 
@@ -136,8 +138,8 @@ class WeatherClockMyWayCard extends HTMLElement {
     this.querySelector('#wcmw-card-temp').innerText = tempValue ? `${Math.round(tempValue)}${tempUnit}` : '-';
     this.querySelector('#wcmw-card-winds').innerText =
       (windDirectionIcon ? `${windDirectionIcon} ` : '') +
-      (windSpeed ? `${windSpeed} m/s ` : '') +
-      (windGust ? `🌬️ ${windGust} m/s` : '');
+      (windSpeed ? `${windSpeed} ${windSpeedUnit}` : '') +
+      (windGust ? `🌬️ ${windGust} ${windSpeedUnit}` : '');
 
     // Kuvake
     this.querySelector('#wcmw-card-icon').innerHTML = conditionIcon;
