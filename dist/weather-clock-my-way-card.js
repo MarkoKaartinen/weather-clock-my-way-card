@@ -147,61 +147,53 @@ class WeatherClockMyWayCard extends HTMLElement {
       console.log(weatherEntity);
       console.log(`[WCMW DEBUG] Weather state:`);
       console.log(weatherState);
+      console.log(`[WCMW DEBUG] Weather condition:`);
+      console.log(condition);
     }
   }
 
   getWeatherIcon(condition) {
     const iconMap = {
-      'clear': 'clear-day.svg',
+      'clear-night': 'clear-night.svg',
       'cloudy': 'cloudy.svg',
+      'exceptional': 'exceptional.svg',
+      'fog': 'fog.svg',
+      'hail': 'hail.svg',
+      'lightning': 'thunderstorms.svg',
+      'lightning-rainy': 'thunderstorms-rain.svg',
+      'partlycloudy': 'partly-cloudy-day.svg',
+      'pouring': 'extreme-rain.svg',
       'rainy': 'rain.svg',
-      // lisää muut
+      'snowy': 'snow.svg',
+      'snowy-rainy': 'sleet.svg',
+      'sunny': 'clear-day.svg',
+      'windy': 'wind.svg',
+      'windy-variant': 'wind.svg',
     };
-    const iconFile = iconMap[(condition || '').toLowerCase()] || 'rain.svg';
+    const iconFile = iconMap[(condition || '').toLowerCase()] || 'not-available.svg';
     // HACS:in kautta oikea polku on /hacsfiles/<repo-nimi>/<kansio>/<kuva>
     return `<img src="/hacsfiles/weather-clock-my-way-card/icons/meteocons/${iconFile}" alt="${condition}">`;
   }
-  /*
-  getWeatherIcon(condition) {
-    // Yksinkertainen ikonitulkinta, voit laajentaa
-    switch ((condition || '').toLowerCase()) {
-      case 'clear-night':
-        return '🌕';
-      case 'clear':
-      case 'sunny':
-        return '☀️';
-      case 'cloudy':
-        return '☁️';
-      case 'partlycloudy':
-      case 'partly-cloudy':
-      case 'partly_cloudy':
-        return '⛅️';
-      case 'rainy':
-      case 'rain':
-        return '🌧️';
-      case 'snowy':
-      case 'snow':
-        return '❄️';
-      case 'fog':
-        return '🌫️';
-      case 'windy':
-        return '💨';
-      default:
-        return '🌥️';
-    }
-  }
-  */
 
   getConditionText(condition) {
     // Suomentaa säätilan
     switch ((condition || '').toLowerCase()) {
-      case 'cloudy': return 'ENIMMÄKSEEN PILVISTÄ';
-      case 'clear': return 'SELKEÄÄ';
-      case 'rainy': return 'SATEISTA';
-      case 'fog': return 'SUMUISTA';
-      case 'snowy': return 'LUMISTA';
-      case 'partlycloudy': return 'PUOLIPILVISTÄ';
-      default: return condition ? condition.toUpperCase() : '';
+      case 'clear-night':      return 'Selkeä yö';
+      case 'cloudy':           return 'Paljon pilviä';
+      case 'exceptional':      return 'Poikkeuksellinen';
+      case 'fog':              return 'Sumu';
+      case 'hail':             return 'Rakeita';
+      case 'lightning':        return 'Ukkonen';
+      case 'lightning-rainy':  return 'Ukkosta ja sadetta';
+      case 'partlycloudy':     return 'Vähän pilviä';
+      case 'pouring':          return 'Kaatosade';
+      case 'rainy':            return 'Sade';
+      case 'snowy':            return 'Lumi';
+      case 'snowy-rainy':      return 'Lunta ja sadetta / räntää';
+      case 'sunny':            return 'Auringonpaistetta';
+      case 'windy':            return 'Tuulista';
+      case 'windy-variant':    return 'Tuulta ja pilviä';
+      default: return condition ? condition : '';
     }
   }
 
