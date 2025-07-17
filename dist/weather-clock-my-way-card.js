@@ -112,8 +112,9 @@ class WeatherClockMyWayCard extends HTMLElement {
     this.updateTime();
 
     // Sääentiteetti (muuta tarvittaessa)
-    const weatherEntity = this.config.weather || 'weather.home';
+    const weatherEntity = this.config.weather || '';
     const windSpeedEntity = this.config.wind_speed || '';
+    const windBearingEntity = this.config.wind_bearing || '';
     const windGustEntity = this.config.wind_gust || '';
     const tempEntity = this.config.temperature || '';
     const debug = this.config.debug || false;
@@ -123,15 +124,18 @@ class WeatherClockMyWayCard extends HTMLElement {
     const tempUnit = weatherState?.attributes.temperature_unit || '°C';
     const condition = weatherState?.state || '';
     const windSpeed = windSpeedEntity ? this._hass?.states[windSpeedEntity]?.state : weatherState?.attributes.wind_speed;
+    const windBearing = windBearingEntity ? this._hass?.states[windBearingEntity]?.state : weatherState?.attributes.wind_bearing;
     const windGust = windGustEntity ? this._hass?.states[windGustEntity]?.state : weatherState?.attributes.wind_gust_speed;
 
     // Sääkuvake
     const conditionIcon = this.getWeatherIcon(condition);
+    const windDirectionIcon = this.getWindDirectionIcon(windBearing);
 
     // Tekstit
     this.querySelector('#wcmw-card-condition').innerText = this.getConditionText(condition);
     this.querySelector('#wcmw-card-temp').innerText = tempValue ? `${Math.round(tempValue)}${tempUnit}` : '-';
     this.querySelector('#wcmw-card-winds').innerText =
+      (windDirectionIcon ? `${windDirectionIcon} ` : '') +
       (windSpeed ? `${windSpeed} m/s ` : '') +
       (windGust ? `🌬️ ${windGust} m/s` : '');
 
@@ -199,6 +203,34 @@ class WeatherClockMyWayCard extends HTMLElement {
       case 'partlycloudy': return 'PUOLIPILVISTÄ';
       default: return condition ? condition.toUpperCase() : '';
     }
+  }
+
+  getWindDirectionIcon(degree) {
+    if ((degree >= 337.5 && degree <= 360) || (degree >= 0 && degree <= 22.5)) {
+      return '↓';
+    }
+    if (degree > 22.5 && degree <= 67.5) {
+      return '↙';
+    }
+    if (degree > 67.5 && degree <= 112.5) {
+      return '←';
+    }
+    if (degree > 112.5 && degree <= 157.5) {
+      return '↖';
+    }
+    if (degree > 157.5 && degree <= 202.5) {
+      return '↑';
+    }
+    if (degree > 202.5 && degree <= 247.5) {
+      return '↗';
+    }
+    if (degree > 247.5 && degree <= 292.5) {
+      return '→';
+    }
+    if (degree > 292.5 && degree < 337.5) {
+      return '↘';
+    }
+    return '';
   }
 
   getCardSize() {
