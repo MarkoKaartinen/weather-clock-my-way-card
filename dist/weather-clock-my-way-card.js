@@ -138,8 +138,8 @@ class WeatherClockMyWayCard extends HTMLElement {
     this.querySelector('#wcmw-card-temp').innerText = tempValue ? `${Math.round(tempValue)}${tempUnit}` : '-';
     this.querySelector('#wcmw-card-winds').innerText =
       (windDirectionIcon ? `${windDirectionIcon} ` : '') +
-      (windSpeed ? `${windSpeed} ${windSpeedUnit}` : '') +
-      (windGust ? `🌬️ ${windGust} ${windSpeedUnit}` : '');
+      (windSpeed ? `${windSpeed} ` + windSpeedUnit : '') +
+      (windGust ? `🌬️ ${windGust} ` + windSpeedUnit : '');
 
     // Kuvake
     this.querySelector('#wcmw-card-icon').innerHTML = conditionIcon;
@@ -151,6 +151,8 @@ class WeatherClockMyWayCard extends HTMLElement {
       console.log(weatherState);
       console.log(`[WCMW DEBUG] Weather condition:`);
       console.log(condition);
+      console.log(`[WCMW DEBUG] Weather wind speed unit:`);
+      console.log(windSpeedUnit);
     }
   }
 
