@@ -182,21 +182,21 @@ class WeatherClockMyWayCard extends HTMLElement {
   getConditionText(condition) {
     // Suomentaa säätilan
     switch ((condition || '').toLowerCase()) {
-      case 'clear-night':      return 'Selkeä yö';
-      case 'cloudy':           return 'Paljon pilviä';
+      case 'clear-night':      return 'Yö, selkeää';
+      case 'cloudy':           return 'Pilvistä';
       case 'exceptional':      return 'Poikkeuksellinen';
-      case 'fog':              return 'Sumu';
-      case 'hail':             return 'Rakeita';
-      case 'lightning':        return 'Ukkonen';
-      case 'lightning-rainy':  return 'Ukkosta ja sadetta';
-      case 'partlycloudy':     return 'Vähän pilviä';
-      case 'pouring':          return 'Kaatosade';
-      case 'rainy':            return 'Sade';
-      case 'snowy':            return 'Lumi';
-      case 'snowy-rainy':      return 'Lunta ja sadetta / räntää';
-      case 'sunny':            return 'Auringonpaistetta';
+      case 'fog':              return 'Sumuista';
+      case 'hail':             return 'Raekuuroja';
+      case 'lightning':        return 'Ukkoskuuroja';
+      case 'lightning-rainy':  return 'Ukkosvaara, sateista';
+      case 'partlycloudy':     return 'Puolipilvistä';
+      case 'pouring':          return 'Kaatosadetta';
+      case 'rainy':            return 'Sateista';
+      case 'snowy':            return 'Lumisadetta';
+      case 'snowy-rainy':      return 'Räntäsadetta';
+      case 'sunny':            return 'Aurinkoista';
       case 'windy':            return 'Tuulista';
-      case 'windy-variant':    return 'Tuulta ja pilviä';
+      case 'windy-variant':    return 'Tuulista, pilvistä';
       default: return condition ? condition : '';
     }
   }
